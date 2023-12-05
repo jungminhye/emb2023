@@ -1,16 +1,15 @@
+all:test_buzzer
 
-final.elf:1.o 2.o 3.o main.o
-	gcc -g -o final.elf  main.o 1.o 2.o 3.o
+test_buzzer:libMyPeri.a test_buzzer.c
+	arm-linux-gnueabi-gcc -o test_buzzer test_buzzer.c -lMyPeri -L.
 
-main.o: main.c
-	gcc -c main.c 
+libMyPeri.a:buzzer.o
+	arm-linux-gnueabi-ar rc libMyPeri.a buzzer.o
 
-1.o:1.c myProject.h
-	gcc -c 1.c
+buzzer.o:buzzer.c
+	arm-linux-gnueabi-gcc -o buzzer.o -c buzzer.c
 
-2.o:2.c myProject.h
-	gcc -c 2.c
+clean:
+	rm -f test_buzzer buzzer.o libMyPeri.a
 
-3.o:3.c myProject.h
-	gcc -c 3.c
 
