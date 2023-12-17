@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <sys/ipc.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -7,12 +8,21 @@
 
 #include "accelMagGyro.h"
 
-
 int main(void){
 
-//accel[0],accel[1],accel[2]
-//magne[0],magne[1],magne[2]
-AccelMagneGyro();
+int accel1, accel2, accel3;
+int magne1, magne2, magne3;
+int gyro1, gyro2, gyro3;
 
-return 0;
+Accel(&accel1, &accel2, &accel3);
+Mage(&magne1, &magne2, &magne3);
+Gyro(&gyro1, &gyro2, &gyro3);
+
+printf("\n accel 1번 값은 %d\n",accel1);
+
+printf("\n magne 1번 값은 %d\n",magne1);
+
+printf("\n gyro 1번 값은 %d\n", gyro1);
+
 }
+

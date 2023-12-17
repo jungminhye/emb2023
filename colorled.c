@@ -146,3 +146,65 @@ int pwmLedInit(void)
 	pwmStartAll();
 	return 0;
 }
+
+void blue(void) {
+pwmSetPercent(100,0);
+pwmSetPercent(0,1);
+pwmSetPercent(0,2);
+}
+
+void green(void) {
+pwmSetPercent(0,0);
+pwmSetPercent(100,1);
+pwmSetPercent(0,2);
+}
+
+void red(void) {
+pwmSetPercent(0,0);
+pwmSetPercent(0,1);
+pwmSetPercent(100,2);
+}
+
+void white(void) {
+pwmSetPercent(50,0);
+pwmSetPercent(50,1);
+pwmSetPercent(50,2);
+}
+
+void off(void) {
+pwmSetPercent(0,0);
+pwmSetPercent(0,1);
+pwmSetPercent(0,2);
+}
+
+
+void redled(void){
+pwmLedInit();
+red();
+pwmInactiveAll();
+}
+
+void greenled(void){
+pwmLedInit();
+green();
+pwmInactiveAll();
+}
+
+void blueled(void){
+pwmLedInit();
+blue();
+pwmInactiveAll();
+}
+
+void whiteled(void){
+pwmLedInit();
+white();
+pwmInactiveAll();
+}
+
+void colorledoff(void){
+pwmLedInit();
+off();
+pwmInactiveAll();
+}
+
