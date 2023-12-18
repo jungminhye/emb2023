@@ -4,7 +4,7 @@
 destination_ip="172.20.10.6"
 destination_user="kim"
 destination_path="/home/kim"
-destination_password="528491"
+destination_password="password"
 
 
 while true; do
