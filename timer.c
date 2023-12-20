@@ -68,7 +68,7 @@ void startTimer(timelist *k)
         seconds = k->sec;
         minutes = k-> mi;
 
-        fndDisp(centiseconds + seconds * 100 + minutes * 10000, 0);
+        fndDisp(centiseconds + seconds * 100 + minutes * 10000, 0b1010);
 
         usleep(10000); // 0.01초 대기
 
