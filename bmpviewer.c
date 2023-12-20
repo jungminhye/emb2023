@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>     // for exit
-#include "../libfbdev/libfbdev.h"
-#include "../libbmp/libbmp.h"
+#include "libfbdev.h"
+#include "libbmp.h"
 
 int bmp1()
 {
