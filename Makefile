@@ -1,11 +1,11 @@
 CC = arm-linux-gnueabi-gcc
 AR = arm-linux-gnueabi-ar
 
-all:kartrider
+all:controller
 
-kartrider:libMyPeri.a kartrider.c
-	$(CC) -o kartrider kartrider.c -lMyPeri -L.
-	scp kartrider ecube@172.20.10.3:/home/ecube/kartrider
+controller:libMyPeri.a controller.c
+	$(CC) -o controller controller.c -lMyPeri -L.
+	scp controller ecube@172.20.10.3:/home/ecube/controller
 
 libMyPeri.a: buzzer.o accelMagGyro.o colorled.o temperature.o button.o textlcd.o fnd.o led.o 
 	$(AR) rc libMyPeri.a buzzer.o accelMagGyro.o colorled.o temperature.o button.o textlcd.o fnd.o led.o
@@ -22,6 +22,6 @@ buzzer.o: buzzer.h accelMagGyro.h colorled.h temperature.h button.h textlcd.h fn
 
 
 clean:
-	rm -f kartrider buzzer.o accelMagGyro.o colorled.o temperature.o button.o textlcd.o fnd.o led.o libMyPeri.a
+	rm -f controller buzzer.o accelMagGyro.o colorled.o temperature.o button.o textlcd.o fnd.o led.o libMyPeri.a
 
 
