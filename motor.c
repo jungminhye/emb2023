@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <string.h>
 
+
 int main(){
 	//기본 상태는 정지상태
 	//while문 계속 돌다가 read 해서 출발신호 받으면 출발(기본 속도)
@@ -10,6 +11,7 @@ int main(){
 	
 	const char *usbPath = "/dev/ttyACM0";
 	const char *dataPath = "/home/ecube/data";
+	const char *startPath = "/home/ecube/startflag";
 
 	const char *clearall = "gpio writeall 00\r";
 	const char *clear0 = "gpio clear 0\r";
@@ -22,6 +24,7 @@ int main(){
         const char *set3 = "gpio set 3\r";
 		
 	int gyro[4];
+	int startflag;
 
 	int fdusb = open(usbPath, O_WRONLY);
 
@@ -34,13 +37,16 @@ int main(){
 
 	while(1){
 		FILE *fpdata = fopen(dataPath, "rt");
-	
+		FILE *fpstart = fopen(startPath, "rt");
+
+		fscanf(fpdata,"%d",&startflag);
 		fscanf(fpdata,"%d, %d, %d, %d",&gyro[1],&gyro[2],&gyro[3],&gyro[0]);
-		printf("startFlag:%d\ngyroscope:%d,%d,%d\n",gyro[0],gyro[1],gyro[2],gyro[3]);
+		
+		printf("startFlag:%d\ngyroscope:%d,%d,%d\n",startflag,gyro[1],gyro[2],gyro[3]);
 		fclose(fpdata);
 
-//		if(gyro[0]==1)	//출발 신호
-//		{	
+	if(startflag==1)	//출발 신호
+		{	
 			if(gyro[1]>=-1000&&gyro[1]<=1000)	//직진
 			{
 				if(gyro[2]>=-1000&&gyro[2]<=1000)  //멈춰
@@ -88,18 +94,28 @@ int main(){
                          }
 			else //우회전
 			{
-				 	
+				        write(fdusb,clear1,strlen(clear1));
+                                        write(fdusb,clear3,strlen(clear3));
+                                        write(fdusb,set2,strlen(set2));
+                                        usleep(500);
+                                        write(fdusb,clear2,strlen(clear2));
+                                        usleep(1000);
+                                        write(fdusb,set0,strlen(set0));
+                                        usleep(10000-gyro[1]);
+                                        write(fdusb,clear0,strlen(clear0));
+                                        usleep(500);
+	
 			}
 			
 		
 		}
-//		else if(gyro[0]==0) 	//정지 신호
-//		{
-//			write(fdusb,clearall,strlen(clearall));
-//			close(fdusb);
-//			break;
-//
-//		}
-//	}
+		else if(startflag==0) 	//정지 신호
+		{
+			write(fdusb,clearall,strlen(clearall));
+			close(fdusb);
+			break;
+
+		}
+	}
 }
 
