@@ -164,6 +164,9 @@ do{
                                         if (240 < recvMsg.x && recvMsg.x < 800 && 210 < recvMsg.y && recvMsg.y < 380)
                                         {
                                                 bmp2();
+						do {  //값을 받아야지만 밑으로
+                				msgrcv(msgID, &recvMsg, sizeof(recvMsg) - sizeof(long int), 0, 0);
+            					} while (!((630 < recvMsg.x && recvMsg.x < 780 && 55 < recvMsg.y && recvMsg.y < 280)||(220 < recvMsg.x && recvMsg.x < 370 && 55 < recvMsg.y && recvMsg.y < 280)));
                                                 if(630 < recvMsg.x && recvMsg.x < 780 && 55 < recvMsg.y && recvMsg.y < 280)
                                                 {
                                                         // 빨간 자동차 누르면
@@ -205,9 +208,13 @@ do{
                                                                                 {
                                                                                 ifPlay = 0;
                                                                                 bmp7();         // 시간을 k 구조체에 저장하는 코드 (예: clock_gettime 사용)
+										if (30 < recvMsg.x && recvMsg.x < 160 && 430 < recvMsg.y && recvMsg.y < 535){
+                            							break;
+										}
                                                                                 }
                                                                         }
                                                                 }
+									
 
                                                                                 }
 while(1);//second o
