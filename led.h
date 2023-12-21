@@ -8,5 +8,5 @@ int ledLibInit(void);
 int ledOnOff (int ledNum, int onOff);
 int ledStatus (void);
 int ledLibExit(void);
-int ledcntl(int argc,char **argv);
+int ledcntl(int argc);
 #endif _LED_H_

@@ -83,7 +83,7 @@ int buttonInit(void)
 		return 0;
 	}
 	fd=open (buttonPath, O_RDONLY);
-	msgID = msgget (MESSAGE_ID, IPC_CREAT|0666);
+	msgID = msgget (MESSAGE_ID1, IPC_CREAT|0666);
 	BUTTON_MSG_T trashCan;
 	while (	msgrcv (msgID, &trashCan, sizeof(BUTTON_MSG_T) - sizeof(long int), 0, IPC_NOWAIT) >= 0	)
 	{

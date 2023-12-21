@@ -22,7 +22,7 @@ void doHelp(void)
 
 
 
-void lcdtextwrite(const char *str1, const char *str2, int lineFlag)
+void lcdtextwrite(const char *str1, int lineFlag)
 {
 	unsigned int linenum = 0;
 	stTextLCD stlcd;  // stTextLCD 구조체를 가지고 드라이버와 인터페이스
@@ -42,11 +42,11 @@ void lcdtextwrite(const char *str1, const char *str2, int lineFlag)
         	return;
     	}
 
-    len = strlen(str2);
+    len = strlen(str1);
     if (len > COLUMN_NUM)
-        memcpy(stlcd.TextData[stlcd.cmdData - 1], str2, COLUMN_NUM);
+        memcpy(stlcd.TextData[stlcd.cmdData - 1], str1, COLUMN_NUM);
     else
-        memcpy(stlcd.TextData[stlcd.cmdData - 1], str2, len);
+        memcpy(stlcd.TextData[stlcd.cmdData - 1], str1, len);
 
     stlcd.cmd = CMD_WRITE_STRING;
 

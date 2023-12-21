@@ -25,16 +25,11 @@ ledValue = 0;
 ledOnOff (0, 0);
 close(fd);
 }
-int ledcntl(int argc,char **argv)
+int ledcntl(int argc)
 {
 
-	if (argc < 2 )
-	{
-	perror(" Args number is less than 2\n");
-	return 1;
-	}
 unsigned int data = 0;
-data = strtol(argv[1], NULL, 16);
+data = argc;
 printf("write data: 0x%X\n", data);
 fd = open(LED_DRIVER_NAME, O_RDWR);
 if ( fd < 0 )
