@@ -60,6 +60,46 @@ void printWinnerMessage(timelist timestamps[MAX_TIMESTAMPS]) {
     }
 }
 
+
+void* musicThread(void* arg) {
+    playCNT();
+    playBGM();
+
+    // 여기에 음악을 재생하는 코드를 추가
+    printf("Music Thread Started\n");
+
+   // int fd = open(FILEPATH, O_RDONLY);
+   // if (fd == -1) {
+    //    perror("open err");
+     //   exit(1);
+   // }
+
+    
+       // char buffer[2];
+       // lseek(fd, 0, SEEK_SET);
+     //   read(fd, buffer, sizeof(buffer));
+
+        if (buffer[0] == '0') {
+            // startflag가 0이면 노래를 멈추고 쓰레드 종료
+            printf("Stop Music\n");
+            buzzerStopSong();
+	    // 여기에 노래 정지 코드 추가
+           // break;
+        }
+
+        // 추가적인 음악 처리나 대기 코드
+        // ...
+
+        usleep(100000);  // 100ms 대기
+    
+
+    close(fd);
+    printf("Music Thread Finished\n");
+    return NULL;
+}
+
+
+
 void* timerThread()
 {
          timelist k = {0, 0, 0};
@@ -144,8 +184,12 @@ do{
                                                                         printf("Button Pressed: %c\n", buffer[0]);
                                                                         if (buffer[0] == '1' && !ifPlay)
                                                                                 {
-                                                                                ifPlay = 1;
-                                                                                pthread_t timerThreadId;
+
+											ifPlay = 1;
+                                                                                pthread_t musicThreadID;
+											pthread_create(&musicThreadID, NULL, musicThread, NULL);
+
+									       	pthread_t timerThreadId;
                                                                                 pthread_create(&timerThreadId, NULL, timerThread, buffer);
                                                                                 bmp5();
                                                                                 ledcntl(0xDB);

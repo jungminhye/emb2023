@@ -89,32 +89,19 @@ int main() {
     bmp1(); // 게임 시작화면 띄우기
     printf("화면 띄우기 완료 1\n");
 
-    touchInit(); // 터치스크린 초기화
-             int fd = open(FILEPATH, O_WRONLY);
+    touchInit(); // 터치스크린 초기화  
+    int fd = open(FILEPATH, O_WRONLY);
 
-//        int msgID = msgget(MESSAGE_ID, IPC_CREAT | 0666);
-  //      if (msgID == -1)
-     //   {
-      //  perror("msgget");
-        //return 1;
-        //}
-        // BMP_MSG_T recvMsg; // 메세지큐 구조체 정의
-        int msgID1 = msgget(MESSAGE_ID1, IPC_CREAT | 0666);
-        if (msgID1 == -1)
-        {
+    int msgID1 = msgget(MESSAGE_ID1, IPC_CREAT | 0666);
+    if (msgID1 == -1)
+    {
         perror("msgget1");
         return 1;
-        }
-        BUTTON_MSG_T recvdMsgBut;
-//printf("Message Queue ID: %d, %d\n", msgID, msgID1);
+    }
+    BUTTON_MSG_T recvdMsgBut;
 
-
-
-//      BUTTON_MSG_T recvdMsgBut;
         buttonInit();
         bmp1();
-      //  touchInit();
-
     int msgID = msgget(MESSAGE_ID, IPC_CREAT | 0666); // 메세지큐 아이디 얻어오기
     BMP_MSG_T recvMsg;                                  // 메세지큐 구조체 정의
 
